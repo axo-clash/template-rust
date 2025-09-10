@@ -1,0 +1,18 @@
+[package]
+name = "template-rust"
+version = "1.0.0"
+edition = "2024"
+
+
+[profile.release]
+opt-level = 3          # Optimisation maximale
+lto = "fat"           # Link Time Optimization complète
+codegen-units = 1     # Une seule unité de génération de code
+panic = "abort"       # Pas de stack unwinding
+strip = true          # Supprime les symboles de debug
+
+[dependencies]
+actix-web = "4.11"
+serde = { version = "1.0", features = ["derive"] }
+rand = "0.9"
+serde_json = "1.0"
