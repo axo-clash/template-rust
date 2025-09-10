@@ -7,7 +7,7 @@ pub struct BotService {}
 impl BotService {
     pub fn get_bot_info() -> BotInfoDTO {
         BotInfoDTO {
-            name: "Template Rust Bot".to_string(),
+            name: "Rust Template Bot".to_string(),
             version: "1.0.0".to_string(),
         }
     }
