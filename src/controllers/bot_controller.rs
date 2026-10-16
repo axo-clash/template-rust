@@ -15,3 +15,11 @@ pub async fn play(game_state: web::Json<GameBotDTO>) -> Result<HttpResponse> {
     let action = BotService::play(&game_state);
     Ok(HttpResponse::Ok().json(PlayResponseDTO { action }))
 }
+
+pub fn bot_routes(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::scope("/api/v1/bots")
+            .service(get_bot_info)
+            .service(play),
+    );
+}

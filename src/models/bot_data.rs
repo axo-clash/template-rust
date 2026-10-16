@@ -1,12 +1,15 @@
 use super::bot_state::BotState;
+use super::serde_utils::lenient;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BotDataDTO {
-    pub life: i32,
-    #[serde(rename = "forbiddenActions")]
-    pub forbidden_actions: i32,
-    pub state: BotState,
-    #[serde(rename = "lastActionTimeMs")]
-    pub last_action_time_ms: i64,
+    #[serde(default)]
+    pub life: Option<i32>,
+    #[serde(rename = "forbiddenActions", default)]
+    pub forbidden_actions: Option<i32>,
+    #[serde(default, deserialize_with = "lenient")]
+    pub state: Option<BotState>,
+    #[serde(rename = "lastActionTimeMs", default)]
+    pub last_action_time_ms: Option<i64>,
 }

@@ -27,7 +27,12 @@ Start the server:
 cargo run
 ```
 
-The server will start and listen on `http://0.0.0.0:6000`
+The server will start and listen on `http://0.0.0.0:9000`
+
+The listen port can be overridden with the `PORT` environment variable:
+```bash
+PORT=8080 cargo run
+```
 
 For development with automatic recompilation, you can use:
 ```bash
@@ -35,10 +40,29 @@ cargo watch -x run
 ```
 (requires `cargo install cargo-watch`)
 
+### Docker
+
+Build the image:
+```bash
+docker build -t axoclash-bot-rust .
+```
+
+Run the container:
+```bash
+docker run -p 9000:9000 axoclash-bot-rust
+```
+
+The container listens on port 9000 by default. Override it with the `PORT` environment variable (and map the port accordingly):
+```bash
+docker run -e PORT=8080 -p 8080:8080 axoclash-bot-rust
+```
+
+The final image is built `FROM scratch`: it contains only the statically-linked binary (no OS, no libraries, no certificates — the bot does not call any external API).
+
 ## API Endpoints
 
-- `GET /info` - Returns bot information
-- `POST /play` - Accepts game state and returns bot action
+- `GET /api/v1/bots/info` - Returns bot information
+- `POST /api/v1/bots/play` - Accepts game state and returns bot action
 
 ## Development
 

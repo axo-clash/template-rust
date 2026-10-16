@@ -1,8 +1,11 @@
-use super::{bot::BotDTO, game::GameDTO};
+use super::bot::BotDTO;
+use super::game::GameDTO;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GameBotDTO {
-    pub game: GameDTO,
-    pub bot: BotDTO,
+    #[serde(default)]
+    pub game: Option<GameDTO>,
+    #[serde(default)]
+    pub bot: Option<BotDTO>,
 }

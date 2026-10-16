@@ -13,3 +13,4 @@ pub mod game_bot;
 pub mod item;
 pub mod item_type;
 pub mod play_response;
+pub mod serde_utils;
