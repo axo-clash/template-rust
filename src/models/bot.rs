@@ -1,15 +1,25 @@
-use super::{bot_data::BotDataDTO, bot_type::BotType, coord::CoordDTO};
+use super::bot_data::BotDataDTO;
+use super::bot_type::BotType;
+use super::coord::CoordDTO;
+use super::serde_utils::lenient;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BotDTO {
-    pub id: i64,
-    pub name: String,
-    pub version: String,
-    pub url: String,
-    pub data: BotDataDTO,
-    #[serde(rename = "botType")]
-    pub bot_type: BotType,
-    pub coordinates: CoordDTO,
-    pub faster: bool,
+    #[serde(default)]
+    pub id: Option<i64>,
+    #[serde(default)]
+    pub name: Option<String>,
+    #[serde(default)]
+    pub version: Option<String>,
+    #[serde(default)]
+    pub url: Option<String>,
+    #[serde(default)]
+    pub data: Option<BotDataDTO>,
+    #[serde(rename = "botType", default, deserialize_with = "lenient")]
+    pub bot_type: Option<BotType>,
+    #[serde(default)]
+    pub coordinates: Option<CoordDTO>,
+    #[serde(default)]
+    pub faster: Option<bool>,
 }
