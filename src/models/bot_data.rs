@@ -6,6 +6,8 @@ use serde::{Deserialize, Serialize};
 pub struct BotDataDTO {
     #[serde(default)]
     pub life: Option<i32>,
+    #[serde(rename = "nextTrapTurn", default)]
+    pub next_trap_turn: Option<i32>,
     #[serde(rename = "forbiddenActions", default)]
     pub forbidden_actions: Option<i32>,
     #[serde(default, deserialize_with = "lenient")]

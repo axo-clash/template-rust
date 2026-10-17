@@ -14,3 +14,7 @@ pub mod item;
 pub mod item_type;
 pub mod play_response;
 pub mod serde_utils;
+
+pub mod trap;
+
+pub mod rules;

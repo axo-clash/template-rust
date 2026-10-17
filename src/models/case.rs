@@ -12,4 +12,6 @@ pub struct CaseDTO {
     pub content: Option<CaseContent>,
     #[serde(default)]
     pub items: Option<Vec<ItemDTO>>,
+    #[serde(default)]
+    pub trap: Option<super::trap::TrapDTO>,
 }

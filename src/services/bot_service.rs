@@ -1,6 +1,7 @@
 use crate::models::action::Action;
 use crate::models::bot_info::BotInfoDTO;
 use crate::models::game_bot::GameBotDTO;
+use crate::models::play_response::PlayResponseDTO;
 
 pub struct BotService {}
 
@@ -12,21 +13,11 @@ impl BotService {
         }
     }
 
-    pub fn play(_game: &GameBotDTO) -> Action {
-        use rand::prelude::*;
-        let mut rng = rand::rng();
-
-        let actions = [
-            Action::MoveLeft,
-            Action::MoveRight,
-            Action::MoveUp,
-            Action::MoveDown,
-            Action::ShootLeft,
-            Action::ShootRight,
-            Action::ShootUp,
-            Action::ShootDown,
-        ];
-
-        *actions.choose(&mut rng).unwrap_or(&Action::Unknown)
+    pub fn play(_game: &GameBotDTO) -> PlayResponseDTO {
+        // Replace this placeholder with your own strategy.
+        PlayResponseDTO {
+            action: Action::ShootUp,
+            coordinates: None,
+        }
     }
 }

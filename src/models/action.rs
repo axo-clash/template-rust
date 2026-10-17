@@ -18,6 +18,8 @@ pub enum Action {
     ShootUp,
     #[serde(rename = "SHOOT_DOWN")]
     ShootDown,
+    #[serde(rename = "PLACE_TRAP")]
+    PlaceTrap,
     #[serde(rename = "UNKNOWN")]
     Unknown,
 }

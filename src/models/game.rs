@@ -7,6 +7,8 @@ use serde::{Deserialize, Serialize};
 pub struct GameDTO {
     #[serde(default)]
     pub id: Option<i64>,
+    #[serde(default)]
+    pub rules: Option<super::rules::GameRulesDTO>,
     #[serde(rename = "firstBot", default)]
     pub first_bot: Option<BotDTO>,
     #[serde(rename = "secondBot", default)]

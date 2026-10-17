@@ -6,6 +6,8 @@ use serde::{Deserialize, Serialize};
 pub struct ActionDTO {
     #[serde(default)]
     pub id: Option<i64>,
+    #[serde(default)]
+    pub coordinates: Option<super::coord::CoordDTO>,
     #[serde(rename = "botId", default)]
     pub bot_id: Option<i64>,
     #[serde(default, deserialize_with = "lenient")]

@@ -1,8 +1,6 @@
 use actix_web::{App, HttpServer};
 
-mod controllers;
-mod models;
-mod services;
+use template_rust::controllers;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

@@ -1149,7 +1149,6 @@ name = "template-rust"
 version = "1.0.0"
 dependencies = [
  "actix-web",
- "rand",
  "serde",
  "serde_json",
 ]

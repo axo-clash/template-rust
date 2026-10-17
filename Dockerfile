@@ -1,25 +1,25 @@
-# --- Etape 1 : Build de l'application (binaire statique musl) ---
-FROM rust:alpine AS build
+# Scaleway runs linux/amd64, including when this image is built on an ARM host.
+FROM --platform=linux/amd64 rust:alpine AS build
 WORKDIR /app
+ARG TARGETPLATFORM
+RUN test "$TARGETPLATFORM" = "linux/amd64" || { \
+        echo 'Build for Scaleway with: docker buildx build --platform linux/amd64 ...' >&2; exit 1; \
+    }
+RUN apk add --no-cache build-base \
+    && rustup target add x86_64-unknown-linux-musl
 
-# Copie les manifests et pre-compile les dependances (cache Docker)
 COPY Cargo.toml Cargo.lock ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs \
-    && cargo build --release \
-    && rm -rf src target/release/deps/template_rust* target/release/template-rust
+    && cargo build --locked --release --target x86_64-unknown-linux-musl \
+    && rm -rf src target/x86_64-unknown-linux-musl/release/deps/template_rust* \
+        target/x86_64-unknown-linux-musl/release/template-rust
 
 COPY . .
-RUN touch src/main.rs && cargo build --release
+RUN touch src/main.rs \
+    && cargo build --locked --release --target x86_64-unknown-linux-musl
 
-# --- Etape 2 : Image finale minimale (FROM scratch) ---
-# Le binaire est statiquement lie (musl), strippe et sans deps externes :
-# aucune librairie ni certificat n'est necessaire au runtime.
-FROM scratch
-
-# Port d'ecoute par defaut (surchargeable via la variable d'environnement PORT)
+FROM --platform=linux/amd64 scratch
 ENV PORT=9000
 EXPOSE 9000
-
-COPY --from=build /app/target/release/template-rust /template-rust
-
+COPY --from=build /app/target/x86_64-unknown-linux-musl/release/template-rust /template-rust
 ENTRYPOINT ["/template-rust"]

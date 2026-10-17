@@ -14,5 +14,4 @@ strip = true          # Supprime les symboles de debug
 [dependencies]
 actix-web = "4.11"
 serde = { version = "1.0", features = ["derive"] }
-rand = "0.10"
 serde_json = "1.0"
